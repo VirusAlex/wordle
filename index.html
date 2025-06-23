@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5БУКВ - Помощник для решения словесных головоломок</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 24" width="240" height="48">
+                  <defs>
+                    <linearGradient id="headerGrayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#4a5568;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#2d3748;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="headerWhiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#e2e8f0;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#cbd5e0;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="headerYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#f6e05e;stop-opacity:1" />
+                      <stop offset="100%" style="stop-color:#ecc94b;stop-opacity:1" />
+                    </linearGradient>
+                    <filter id="headerShadow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-opacity="0.4"/>
+                    </filter>
+                  </defs>
+                  
+                  <!-- Квадрат 1 - серый с "5" -->
+                  <rect x="0" y="2" width="20" height="20" rx="3" fill="url(#headerGrayGrad)" stroke="#2d3748" stroke-width="1" filter="url(#headerShadow)"/>
+                  <text x="10" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e2e8f0">5</text>
+                  
+                  <!-- Квадрат 2 - белый с "Б" -->
+                  <rect x="25" y="2" width="20" height="20" rx="3" fill="url(#headerWhiteGrad)" stroke="#cbd5e0" stroke-width="1" filter="url(#headerShadow)"/>
+                  <text x="35" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">Б</text>
+                  
+                  <!-- Квадрат 3 - желтый с "У" -->
+                  <rect x="50" y="2" width="20" height="20" rx="3" fill="url(#headerYellowGrad)" stroke="#ecc94b" stroke-width="1" filter="url(#headerShadow)"/>
+                  <text x="60" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">У</text>
+                  
+                  <!-- Квадрат 4 - белый с "К" -->
+                  <rect x="75" y="2" width="20" height="20" rx="3" fill="url(#headerWhiteGrad)" stroke="#cbd5e0" stroke-width="1" filter="url(#headerShadow)"/>
+                  <text x="85" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">К</text>
+                  
+                  <!-- Квадрат 5 - серый с "В" -->
+                  <rect x="100" y="2" width="20" height="20" rx="3" fill="url(#headerGrayGrad)" stroke="#2d3748" stroke-width="1" filter="url(#headerShadow)"/>
+                  <text x="110" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e2e8f0">В</text>
+                </svg>
+            </h1>
+            <p>Помощник для решения словесных головоломок из 5 букв</p>
+        </header>
+
+        <div class="game-section">
+            <h2>Введите ваши попытки</h2>
+            <p class="instruction">Введите слово - буквы автоматически станут серыми. Измените цвет на белый или желтый при необходимости:</p>
+            
+            <div class="color-legend">
+                <div class="legend-item">
+                    <div class="color-box gray"></div>
+                    <span>Буквы нет в слове</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box white"></div>
+                    <span>Буква есть, но не на своем месте</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box yellow"></div>
+                    <span>Буква на правильном месте</span>
+                </div>
+            </div>
+
+            <div id="attempts-container">
+                <!-- Попытки будут добавляться динамически -->
+            </div>
+
+            <div class="controls">
+                <div class="button-group">
+                    <button id="add-attempt" class="btn btn-secondary">➕ Добавить попытку</button>
+                    <button id="analyze" class="btn btn-primary">🔍 Найти слова</button>
+                    <button id="reset" class="btn btn-danger">🔄 Сбросить</button>
+                </div>
+                <div class="auto-search-info">
+                    <small>✨ Поиск происходит автоматически при каждом изменении</small>
+                    <small>💾 Состояние автоматически сохраняется</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section" id="results" style="display: none;">
+            <div class="results-grid">
+                <div class="result-column">
+                    <h3>💡 Подходящие слова</h3>
+                    <p class="result-description">Слова, которые соответствуют всем указанным условиям<br>
+                    <small>💡 Кликните на слово, чтобы добавить его как новую попытку</small></p>
+                    <div id="matching-words" class="word-list"></div>
+                    <div id="matching-count" class="word-count"></div>
+                </div>
+                
+                <div class="result-column">
+                    <h3>🎲 Слова для следующей попытки</h3>
+                    <p class="result-description">Слова с совершенно новыми буквами для максимального покрытия<br>
+                    <small>💡 Кликните на слово, чтобы добавить его как новую попытку</small></p>
+                    <div id="suggestion-words" class="word-list"></div>
+                    <div id="suggestion-count" class="word-count"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Создано для любителей словесных головоломок 💙</p>
+        </footer>
+    </div>
+
+    <script src="words.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
